@@ -1,5 +1,9 @@
-import { Box, Flex, Input, Button } from "@chakra-ui/react";
+"use client";
+
+import { Box, Flex, Button, VStack, Text } from "@chakra-ui/react";
 import VectorIcon from "@/components/icons/Vectors";
+import InputField from "@/components/ui/inputs/InputField";
+import { Form, Formik } from "formik";
 
 const LoginPage = () => {
   return (
@@ -21,14 +25,31 @@ const LoginPage = () => {
           gap="4"
           flexDirection="column"
           w="300px">
-          <Input placeholder="Username" name="username" w="full" h="45px" />
-          <Input
-            placeholder="Username"
-            name="password"
-            type="password"
-            w="full"
-            h="45px"
-          />
+          <Text color="white" fontSize="30px" lineHeight="30px" mb="4">
+            Connexion
+          </Text>
+          <Formik
+            initialValues={{ username: "", password: "" }}
+            onSubmit={() => {}}>
+            <Form>
+              <VStack spaceY="4">
+                <InputField
+                  placeholder="Username"
+                  name="username"
+                  height="45px"
+                  width="full"
+                />
+
+                <InputField
+                  type="password"
+                  placeholder="Mot de passe "
+                  name="username"
+                  height="45px"
+                  width="full"
+                />
+              </VStack>
+            </Form>
+          </Formik>
 
           <Box w="full" mt="8">
             <Button
