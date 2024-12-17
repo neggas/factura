@@ -1,14 +1,17 @@
+"use client";
+
 import { Box, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Form, Formik } from "formik";
 import InputField from "../ui/inputs/InputField";
 import { loginInitialValue, LoginType } from "@/helpers/formtypes/loginTypes";
 import loginValidationSchema from "@/helpers/formvalidations/login-form-validation";
+import { signIn } from "@/app/actions";
 
 export default function LoginProcess() {
-  const handleLogin = (values: LoginType) => {
-    //TODO: do stuff for log user
+  const handleLogin = async (values: LoginType) => {
     console.log(values);
+    signIn(values);
   };
 
   return (

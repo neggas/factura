@@ -28,12 +28,13 @@ const InputFieldDumb = ({
       <Field
         label={label}
         invalid={!!hasError}
-        errorText={hasError ? `${error}` : ""}>
+        errorText={hasError ? `${error}` : ""}
+        fontSize="16px">
         <Input
           name={name}
           id={name}
           {...props}
-          color="background.dark"
+          color="white"
           _placeholder={{ color: "text.muted" }}
           fontSize="20px"
         />
