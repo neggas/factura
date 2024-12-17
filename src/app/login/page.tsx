@@ -1,9 +1,7 @@
 "use client";
 
-import { Box, Flex, Button, VStack, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import VectorIcon from "@/components/icons/Vectors";
-import InputField from "@/components/ui/inputs/InputField";
-import { Form, Formik } from "formik";
 import LoginProcess from "@/components/login/Login-process";
 
 const LoginPage = () => {
