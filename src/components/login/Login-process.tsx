@@ -39,6 +39,7 @@ export default function LoginProcess() {
               name="username"
               height="45px"
               width="full"
+              color="white"
             />
 
             <InputField
@@ -47,6 +48,7 @@ export default function LoginProcess() {
               name="password"
               height="45px"
               width="full"
+              color="white"
             />
           </VStack>
 

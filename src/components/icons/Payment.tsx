@@ -26,8 +26,8 @@ const PaymentIcon = createIcon({
       <path
         d="M1.83332 4.66666L15.1667 4.66666L15.1667 7.33332L1.83332 7.33332L1.83332 4.66666Z"
         stroke="#28303F"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </>
   ),
