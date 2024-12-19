@@ -1,6 +1,7 @@
 "use server";
 
 import { signIn as signInAuth } from "@/auth";
+import { UserSession } from "@/helpers/constant/types";
 import { LoginType } from "@/helpers/formtypes/loginTypes";
 import {
   createServerAction,
@@ -10,7 +11,7 @@ import { CredentialsSignin } from "next-auth";
 
 export const signIn = createServerAction(async (credentials: LoginType) => {
   try {
-    const response = await signInAuth("credentials", {
+    const response: UserSession = await signInAuth("credentials", {
       username: credentials.username,
       password: credentials.password,
       redirect: false,
