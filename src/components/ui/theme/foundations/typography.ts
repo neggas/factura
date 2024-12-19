@@ -43,9 +43,9 @@ const textStyles: TextStyles = defineTextStyles({
   "heading-lg": {
     value: {
       fontSize: "30px",
-      lineHeight: "24px",
-      letterSpacing: "-3px",
-      fontWeight: "extra",
+      lineHeight: "50px",
+      letterSpacing: "2x",
+      fontWeight: "bold",
     },
   },
 });
