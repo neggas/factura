@@ -34,7 +34,6 @@ const InputFieldDumb = ({
           name={name}
           id={name}
           {...props}
-          color="white"
           _placeholder={{ color: "text.muted" }}
           fontSize="20px"
         />
