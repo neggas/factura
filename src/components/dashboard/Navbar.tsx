@@ -2,7 +2,12 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import LoggedUser from "./LoggedUser";
 import { navigationsLinks } from "@/helpers/constant/navigations-links";
 import React from "react";
-const Navbar = () => {
+
+interface NavbarProps {
+  userName: string;
+}
+
+const Navbar = async ({ userName }: NavbarProps) => {
   return (
     <Box className="navbar" w="300px" h="full" borderRight="1px solid #E4E4E7">
       <Flex
@@ -16,7 +21,7 @@ const Navbar = () => {
       </Flex>
 
       <Flex pl="10px" pr="16px" pt="16px" pb="10px" flexDir="column">
-        <LoggedUser name="Segun Adebayor" />
+        <LoggedUser name={userName} />
 
         <Flex w="full" gap="20px" mt="24px" flexDir="column">
           {navigationsLinks.map((link, index) => (

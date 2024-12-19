@@ -16,13 +16,7 @@ const LoggedUser = ({ name }: LoggedUserProps) => {
       rounded="4px"
       boxShadow="sm">
       <Flex gap="10px" align="center">
-        <Avatar
-          name="Segun Adebayor"
-          w="20px"
-          h="20px"
-          size="lg"
-          colorPalette="black"
-        />
+        <Avatar name={name} w="20px" h="20px" size="lg" colorPalette="black" />
         <Text textStyle="body">{name} (admin)</Text>
       </Flex>
     </Box>

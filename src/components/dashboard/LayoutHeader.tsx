@@ -3,7 +3,11 @@ import InputFieldDumb from "../ui/dumbs/InputField";
 
 import LoggedUser from "./LoggedUser";
 
-const LayoutHeader = () => {
+interface LayoutHeaderProps {
+  userName: string;
+}
+
+const LayoutHeader = ({ userName }: LayoutHeaderProps) => {
   return (
     <Flex
       className="layout-content-header"
@@ -22,7 +26,7 @@ const LayoutHeader = () => {
         outline="none"
         boxShadow="md"
       />
-      <LoggedUser name="Segun Adebayor" />
+      <LoggedUser name={userName} />
     </Flex>
   );
 };
