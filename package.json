@@ -12,6 +12,7 @@
     "@auth/drizzle-adapter": "^1.7.4",
     "@chakra-ui/react": "^3.2.3",
     "@emotion/react": "^11.14.0",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.2",
     "formik": "^2.4.6",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/pg": "^8.11.10",
     "@types/react": "^19",
