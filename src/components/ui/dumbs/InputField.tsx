@@ -23,7 +23,6 @@ const InputFieldDumb = ({
   error,
   ...props
 }: InputDumbProps) => {
-  console.log(hasError, error);
   return (
     <>
       <Field.Root>

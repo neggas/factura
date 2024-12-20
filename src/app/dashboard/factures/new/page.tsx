@@ -10,6 +10,7 @@ import { Box, Flex, VStack } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { Form, Formik } from "formik";
 import InputField from "@/components/ui/inputs/InputField";
+import NumberFieldInput from "@/components/ui/inputs/NumberInputField";
 
 const NewFacturePage = () => {
   return (
@@ -19,55 +20,76 @@ const NewFacturePage = () => {
         <Formik<CreateInvoiceType>
           initialValues={createInvoiceInitialValue}
           onSubmit={() => {}}>
-          {({ isSubmitting }) => (
-            <Form>
+          {({ isSubmitting, values }) => {
+            {
+              console.log(values);
+            }
+            return (
               <Form>
-                <VStack spaceY="20px" w="900px" maxW="900px">
-                  <InputField
-                    label="Email du destinataire"
-                    name="email"
-                    height="60px"
-                    color="#64748B"
-                  />
-                  <InputField label="RIB utilisé" name="rib" color="#64748B" />
-                  <InputField
-                    label="Nom du drop"
-                    name="dropName"
-                    color="#64748B"
-                  />
-                  <InputField
-                    label="Nom de la banque"
-                    name="bank"
-                    color="#64748B"
-                  />
+                <Form>
+                  <VStack spaceY="20px" w="900px" maxW="900px">
+                    <InputField
+                      label="Email du destinataire"
+                      name="email"
+                      height="60px"
+                      color="#64748B"
+                    />
+                    <InputField
+                      label="RIB utilisé"
+                      name="rib"
+                      color="#64748B"
+                    />
+                    <InputField
+                      label="Nom du drop"
+                      name="dropName"
+                      color="#64748B"
+                    />
+                    <InputField
+                      label="Nom de la banque"
+                      name="bank"
+                      color="#64748B"
+                    />
 
-                  <InputField
-                    label="Montant de la facture"
-                    name="amount"
-                    type="number"
-                    color="#64748B"
-                  />
+                    <InputField
+                      label="Montant de la facture"
+                      name="amount"
+                      type="number"
+                      color="#64748B"
+                    />
 
-                  <InputField
-                    label="Echeance"
-                    name="dueDate"
-                    type="date"
-                    color="#64748B"
-                  />
+                    <NumberFieldInput
+                      label="Montant de la facture"
+                      name="amount"
+                      color="#64748B"
+                      formatOptions={{
+                        style: "currency",
+                        currency: "EUR",
+                        currencyDisplay: "code",
+                        currencySign: "accounting",
+                      }}
+                    />
 
-                  <Flex w="full" justify="end">
-                    <Button
-                      loading={isSubmitting}
-                      size="lg"
-                      textStyle="heading-sm"
-                      rounded="6">
-                      Ajouter
-                    </Button>
-                  </Flex>
-                </VStack>
+                    <InputField
+                      label="Echeance"
+                      name="dueDate"
+                      type="date"
+                      color="#64748B"
+                    />
+
+                    <Flex w="full" justify="end">
+                      <Button
+                        loading={isSubmitting}
+                        size="lg"
+                        textStyle="heading-sm"
+                        rounded="6">
+                        Ajouter
+                      </Button>
+                    </Flex>
+                  </VStack>
+                </Form>
               </Form>
-            </Form>
-          )}
+            );
+          }}
         </Formik>
       </Flex>
     </Box>
