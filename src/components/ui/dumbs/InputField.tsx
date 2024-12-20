@@ -1,7 +1,7 @@
 "use client";
 
-import { Input, InputProps, TextProps } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Input, InputProps, TextProps, Field } from "@chakra-ui/react";
+// import { Field } from "@/components/ui/field";
 import { InputHTMLAttributes, ReactNode } from "react";
 
 type InputDumbProps = InputHTMLAttributes<HTMLInputElement> &
@@ -23,21 +23,29 @@ const InputFieldDumb = ({
   error,
   ...props
 }: InputDumbProps) => {
+  console.log(hasError, error);
   return (
     <>
-      <Field
-        label={label}
-        invalid={!!hasError}
-        errorText={hasError ? `${error}` : ""}
-        fontSize="16px">
+      <Field.Root>
+        {label && (
+          <Field.Label htmlFor={name} textStyle="md">
+            {label}
+          </Field.Label>
+        )}
         <Input
           name={name}
           id={name}
           {...props}
           _placeholder={{ color: "text.muted" }}
           fontSize="20px"
+          height="45px"
         />
-      </Field>
+        {hasError && (
+          <Field.HelperText color="red.500" textStyle="md">
+            {error}
+          </Field.HelperText>
+        )}
+      </Field.Root>
     </>
   );
 };

@@ -7,7 +7,7 @@ const AddIcon = createIcon({
   viewBox: "0 0 16 16",
   path: (
     <>
-      <g clip-path="url(#clip0_7_1882)">
+      <g clipPath="url(#clip0_7_1882)">
         <path
           d="M7.99999 5.33337V10.6667M10.6667 8.00004H5.33333"
           stroke="white"

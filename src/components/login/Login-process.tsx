@@ -34,20 +34,12 @@ export default function LoginProcess() {
       {({ isSubmitting }) => (
         <Form>
           <VStack spaceY="4">
-            <InputField
-              placeholder="Username"
-              name="username"
-              height="45px"
-              width="full"
-              color="white"
-            />
+            <InputField placeholder="Username" name="username" color="white" />
 
             <InputField
               type="password"
               placeholder="Mot de passe "
               name="password"
-              height="45px"
-              width="full"
               color="white"
             />
           </VStack>
