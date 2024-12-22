@@ -8,21 +8,24 @@ import { Flex, VStack } from "@chakra-ui/react";
 import { Form, Formik, FormikErrors } from "formik";
 import InputField from "../ui/inputs/InputField";
 import NumberFieldInput from "../ui/inputs/NumberInputField";
-import FileInputField from "../ui/inputs/FileInputField";
 import { Button } from "../ui/button";
 import { createInvoice } from "@/actions/dashboard";
 import { invoiceValidationSchema } from "@/helpers/formvalidations/invoice-form-validator";
-import { FileType } from "@/helpers/constant/types";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/helpers/constant/routes";
 
 const InvoiceForm = () => {
+  const router = useRouter();
   const handleCreateInvoice = async (
     values: CreateInvoiceType,
     setErrors: (errors: FormikErrors<CreateInvoiceType>) => void
   ) => {
-    const invoiceFile = values.invoice?.acceptedFiles[0] as unknown as FileType;
-    const dataBody = { ...values, invoice: invoiceFile };
-
-    const response = await createInvoice(dataBody);
+    const response = await createInvoice(values);
+    if (response?.success === false) {
+      //TODO: handle error with useToast
+    } else {
+      router.push(ROUTES.INVOICES);
+    }
   };
 
   return (
@@ -71,10 +74,10 @@ const InvoiceForm = () => {
 
               <InputField label="Commentaire" name="comment" color="#64748B" />
 
-              <FileInputField
+              <InputField
+                label="Lien de la facture"
                 name="invoice"
-                label="Drag and drop here to upload"
-                description=".png, .jpg .pdf"
+                color="#64748B"
               />
 
               <Flex w="full" justify="end">

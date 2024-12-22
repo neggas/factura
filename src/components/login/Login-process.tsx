@@ -8,6 +8,7 @@ import { loginInitialValue, LoginType } from "@/helpers/formtypes/loginTypes";
 import loginValidationSchema from "@/helpers/formvalidations/login-form-validation";
 import { signIn } from "@/actions/auth/signin";
 import { useRouter } from "next/navigation";
+import { ROUTES } from "@/helpers/constant/routes";
 
 export default function LoginProcess() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function LoginProcess() {
       return false;
     }
 
-    router.push("/dashboard");
+    router.push(ROUTES.DASHBOARD);
   };
 
   return (

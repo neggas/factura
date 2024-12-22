@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { CreateInvoiceDto } from "../constant/types";
+import { CreateInvoiceType } from "../formtypes/createInvoiceType";
 
 // Define the validation schema
 export const invoiceValidationSchema = Yup.object().shape({
@@ -9,7 +9,7 @@ export const invoiceValidationSchema = Yup.object().shape({
 
   comment: Yup.string().optional(),
 
-  invoice: Yup.mixed().required("Invoice file is required"),
+  invoice: Yup.string().required("Invoice file link is required"),
 
   dueDate: Yup.date()
     .required("Due date is required")
@@ -31,7 +31,7 @@ export const invoiceValidationSchema = Yup.object().shape({
   dropName: Yup.string().required("Drop name is required"),
 });
 
-export const validateInvoice = (values: CreateInvoiceDto) => {
+export const validateInvoice = (values: CreateInvoiceType) => {
   return invoiceValidationSchema
     .validate(values, { abortEarly: false })
     .then(() => {
