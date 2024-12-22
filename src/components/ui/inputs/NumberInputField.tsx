@@ -24,6 +24,7 @@ const NumberFieldInput = ({
   validateOnChange = true,
   defaultValue,
   partlyControledValue,
+  formatoptions,
   ...props
 }: NumberFieldInputProps) => {
   const [field, meta, helpers] = useField(props);
@@ -57,6 +58,7 @@ const NumberFieldInput = ({
       error={error}
       hasError={hasError}
       onChange={onChange}
+      formatOptions={formatoptions}
       w="full"
       h="full"
     />

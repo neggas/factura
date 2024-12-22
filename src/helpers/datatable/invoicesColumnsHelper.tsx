@@ -5,6 +5,7 @@ import { CreateInvoiceType } from "../formtypes/createInvoiceType";
 import LinkIcon from "@/components/icons/LinkIcon";
 import Link from "next/link";
 import { Badge, Text } from "@chakra-ui/react";
+import { frenchDateFormat } from "../date";
 
 interface InvoiceType extends CreateInvoiceType {
   status: "pending" | "paid" | "lost";
@@ -44,7 +45,7 @@ export const invoiceColumnHelper = [
   columnHelper.accessor("dueDate", {
     id: "dueDate",
     header: () => <span>Echéance</span>,
-    cell: (info) => info.getValue(),
+    cell: (info) => frenchDateFormat(info.getValue()),
   }),
 
   columnHelper.accessor((row) => row.status, {
@@ -54,7 +55,7 @@ export const invoiceColumnHelper = [
       let badgeColor = "orange";
       if (info.getValue() === "paid") badgeColor = "green";
       if (info.getValue() === "lost") badgeColor = "red";
-      console.log(badgeColor);
+
       return (
         <Badge colorPalette={badgeColor} size="md">
           <Text textStyle="md">{info.getValue()}</Text>

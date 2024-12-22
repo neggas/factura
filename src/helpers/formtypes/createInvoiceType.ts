@@ -11,7 +11,7 @@ export const createInvoiceInitialValue = {
 
 export type CreateInvoiceType = {
   email: string;
-  comment: string;
+  comment: string | null;
   invoice: string;
   dueDate: string;
   amount: string;
