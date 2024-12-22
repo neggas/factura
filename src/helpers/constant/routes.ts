@@ -1,4 +1,5 @@
 export const ROUTES = {
   DASHBOARD: "/dashboard",
-  INVOICES: "/dashboard/facture/invoices",
+  INVOICES: "/dashboard/factures",
+  INVOICE_FORM: "/dashboard/factures/new",
 };

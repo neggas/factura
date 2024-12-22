@@ -5,7 +5,6 @@ import { createIcon } from "@chakra-ui/react";
 const AnalyseIcon = createIcon({
   displayName: "AnalyseIcon",
   viewBox: "0 0 17 16",
-  fill: "none",
   path: (
     <>
       <path
