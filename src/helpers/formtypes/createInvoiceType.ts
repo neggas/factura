@@ -1,7 +1,9 @@
+import { FileUploadFileChangeDetails } from "@chakra-ui/react";
+
 export const createInvoiceInitialValue = {
   email: "",
   comment: "",
-  invoice: "",
+  invoice: null,
   dueDate: "",
   amount: "",
   rib: "",
@@ -9,4 +11,13 @@ export const createInvoiceInitialValue = {
   dropName: "",
 };
 
-export type CreateInvoiceType = typeof createInvoiceInitialValue;
+export type CreateInvoiceType = {
+  email: string;
+  comment: string;
+  invoice: FileUploadFileChangeDetails | null;
+  dueDate: string;
+  amount: string;
+  rib: string;
+  bank: string;
+  dropName: string;
+};

@@ -1,15 +1,15 @@
 import * as Yup from "yup";
-import { CreateInvoiceType } from "../formtypes/createInvoiceType";
+import { CreateInvoiceDto } from "../constant/types";
 
 // Define the validation schema
-const invoiceValidationSchema = Yup.object().shape({
+export const invoiceValidationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
 
   comment: Yup.string().optional(),
 
-  invoice: Yup.string().required("Invoice number is required"),
+  invoice: Yup.mixed().required("Invoice file is required"),
 
   dueDate: Yup.date()
     .required("Due date is required")
@@ -25,23 +25,13 @@ const invoiceValidationSchema = Yup.object().shape({
       return /^\d+(\.\d{1,2})?$/.test(value.toString());
     }),
 
-  rib: Yup.string()
-    .required("RIB is required")
-    .length(22, "RIB must be 22 characters long"), // Adjust the length if needed
-
+  rib: Yup.string().required("RIB is required"), // Adjust the length if needed
   bank: Yup.string().required("Bank is required"),
 
   dropName: Yup.string().required("Drop name is required"),
-
-  status: Yup.mixed()
-    .oneOf(
-      ["paid", "pending", "lost"],
-      "Status must be one of 'paid', 'pending', or 'lost'"
-    )
-    .default("pending"), // Default value for status
 });
 
-export const validateInvoice = (values: CreateInvoiceType) => {
+export const validateInvoice = (values: CreateInvoiceDto) => {
   return invoiceValidationSchema
     .validate(values, { abortEarly: false })
     .then(() => {
