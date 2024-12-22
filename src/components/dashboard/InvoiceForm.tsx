@@ -5,7 +5,7 @@ import {
   createInvoiceInitialValue,
 } from "@/helpers/formtypes/createInvoiceType";
 import { Flex, VStack } from "@chakra-ui/react";
-import { Form, Formik, FormikErrors } from "formik";
+import { Form, Formik } from "formik";
 import InputField from "../ui/inputs/InputField";
 import NumberFieldInput from "../ui/inputs/NumberInputField";
 import { Button } from "../ui/button";
@@ -16,10 +16,7 @@ import { ROUTES } from "@/helpers/constant/routes";
 
 const InvoiceForm = () => {
   const router = useRouter();
-  const handleCreateInvoice = async (
-    values: CreateInvoiceType,
-    setErrors: (errors: FormikErrors<CreateInvoiceType>) => void
-  ) => {
+  const handleCreateInvoice = async (values: CreateInvoiceType) => {
     const response = await createInvoice(values);
     if (response?.success === false) {
       //TODO: handle error with useToast
@@ -33,9 +30,7 @@ const InvoiceForm = () => {
       <Formik<CreateInvoiceType>
         initialValues={createInvoiceInitialValue}
         validationSchema={invoiceValidationSchema}
-        onSubmit={(values, { setErrors }) =>
-          handleCreateInvoice(values, setErrors)
-        }>
+        onSubmit={(values) => handleCreateInvoice(values)}>
         {({ isSubmitting }) => (
           <Form>
             <VStack spaceY="20px" w="900px" maxW="900px">
