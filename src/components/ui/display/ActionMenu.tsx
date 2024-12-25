@@ -14,7 +14,7 @@ import { Badge, Box } from "@chakra-ui/react";
 
 export interface ActionMenuProps<T extends { id: string }> {
   onUpdate?: () => void;
-  onDelete?: () => void;
+  onDelete?: (id: string, handleInvoiceDelete: (id: string) => void) => void;
   onChangeStatus?: (
     id: string,
     status: "paid" | "lost" | "pending",
@@ -30,6 +30,7 @@ const ActionMenu = <T extends { id: string }>({
   data,
 }: ActionMenuProps<T>) => {
   const updateInvoice = useInvoiceStore.use.updateInvoice();
+  const deleteInvoice = useInvoiceStore.use.deleteInvoice();
   return (
     <Box w="170px">
       <MenuRoot positioning={{ placement: "right-start", gutter: 2 }}>
@@ -92,25 +93,27 @@ const ActionMenu = <T extends { id: string }>({
             </MenuRoot>
           )}
 
-          <MenuItem
-            w="full"
-            value="delete"
-            color="red.500"
-            _hover={{ bg: "bg.error", color: "fg.error" }}>
-            <Button
-              outline="none"
-              onClick={onDelete}
-              variant="ghost"
-              textAlign="left"
-              textStyle="md"
+          {onDelete && (
+            <MenuItem
+              w="full"
+              value="delete"
               color="red.500"
-              p="0"
-              _hover={{
-                bg: "transparent",
-              }}>
-              Supprimer
-            </Button>
-          </MenuItem>
+              _hover={{ bg: "bg.error", color: "fg.error" }}>
+              <Button
+                outline="none"
+                onClick={() => onDelete(data.id, deleteInvoice)}
+                variant="ghost"
+                textAlign="left"
+                textStyle="md"
+                color="red.500"
+                p="0"
+                _hover={{
+                  bg: "transparent",
+                }}>
+                Supprimer
+              </Button>
+            </MenuItem>
+          )}
         </MenuContent>
       </MenuRoot>
     </Box>

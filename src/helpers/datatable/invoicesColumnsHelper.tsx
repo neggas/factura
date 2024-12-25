@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Badge, Text } from "@chakra-ui/react";
 import { frenchDateFormat } from "../date";
 import ActionMenu from "@/components/ui/display/ActionMenu";
-import { updateInvoiceStatus } from "@/actions/dashboard";
+import { updateInvoiceStatus, deleteInvoice } from "@/actions/dashboard";
 
 export type InvoiceType = CreateInvoiceType & {
   status: "pending" | "paid" | "lost";
@@ -26,6 +26,18 @@ const handleChangeStatus = async (
 
   const updatedInvoice = response.value;
   updateInvoice(id, updatedInvoice);
+};
+
+const handleDeleteInvoice = async (
+  id: string,
+  deleteInvoiceStateAction: (id: string) => void
+) => {
+  const response = await deleteInvoice(id);
+  if (!response.success) {
+    throw new Error("Une erreur est apparu");
+  }
+  deleteInvoiceStateAction(id);
+  deleteInvoice(id);
 };
 
 const columnHelper = createColumnHelper<InvoiceType>();
@@ -101,6 +113,7 @@ export const invoiceColumnHelper = [
         <ActionMenu
           data={info.row.original}
           onChangeStatus={handleChangeStatus}
+          onDelete={handleDeleteInvoice}
         />
       );
     },

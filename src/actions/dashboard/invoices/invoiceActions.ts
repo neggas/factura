@@ -43,3 +43,11 @@ export const updateInvoiceStatus = createServerAction(
     return updatedInvoice[0];
   }
 );
+
+export const deleteInvoice = createServerAction(async (invoiceId: string) => {
+  const deletedInvoice = await db
+    .delete(invoices)
+    .where(eq(invoices.id, invoiceId))
+    .returning();
+  return deletedInvoice[0];
+});
