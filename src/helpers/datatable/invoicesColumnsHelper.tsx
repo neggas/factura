@@ -6,10 +6,21 @@ import LinkIcon from "@/components/icons/LinkIcon";
 import Link from "next/link";
 import { Badge, Text } from "@chakra-ui/react";
 import { frenchDateFormat } from "../date";
+import ActionMenu from "@/components/ui/display/ActionMenu";
+import { updateInvoiceStatus } from "@/actions/dashboard";
 
-interface InvoiceType extends CreateInvoiceType {
+export type InvoiceType = CreateInvoiceType & {
   status: "pending" | "paid" | "lost";
-}
+  id: string;
+};
+
+const handleChangeStatus = async (
+  id: string,
+  status: "paid" | "lost" | "pending"
+) => {
+  console.log(id, status);
+};
+
 const columnHelper = createColumnHelper<InvoiceType>();
 export const invoiceColumnHelper = [
   columnHelper.accessor("email", {
@@ -71,6 +82,19 @@ export const invoiceColumnHelper = [
         <Link href={info.getValue()} target="_blank">
           <LinkIcon w="25px" h="25px" />
         </Link>
+      );
+    },
+  }),
+
+  columnHelper.display({
+    id: "actions",
+    header: "Actions",
+    cell: (info) => {
+      return (
+        <ActionMenu
+          data={info.row.original}
+          onChangeStatus={handleChangeStatus}
+        />
       );
     },
   }),

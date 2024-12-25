@@ -8,7 +8,7 @@ import {
   createServerAction,
   ServerActionError,
 } from "@/helpers/server-actions";
-
+import { eq } from "drizzle-orm";
 export const getInvoices = async () => {
   const fetchedInvoices = await db.select().from(invoices);
   return fetchedInvoices;
@@ -29,5 +29,15 @@ export const createInvoice = createServerAction(
     } catch {
       throw new ServerActionError("Une erreur inattendue est survenue.");
     }
+  }
+);
+
+export const updateInvoiceStatus = createServerAction(
+  async (invoiceId: string, status: "paid" | "lost" | "pending") => {
+    const updatedInvoice = await db
+      .update(invoices)
+      .set({ status })
+      .where(eq(invoices.id, invoiceId));
+    return updatedInvoice;
   }
 );
