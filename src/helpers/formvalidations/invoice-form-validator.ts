@@ -16,14 +16,18 @@ export const invoiceValidationSchema = Yup.object().shape({
     .min(new Date(), "Due date must be in the future"),
 
   amount: Yup.number()
-    .required("Amount is required")
-    .positive("Amount must be a positive number")
-    .max(9999999999.99, "Amount is too large")
-    .test("is-decimal", "Amount must have two decimal places", (value) => {
-      if (value === undefined) return true;
-      // Ensure value is a number and has two decimal places
-      return /^\d+(\.\d{1,2})?$/.test(value.toString());
-    }),
+    .typeError("Le montant doit être un nombre valide")
+    .required("Le montant est requis")
+    .positive("Le montant doit être positif")
+    .max(9999999999.99, "Le montant est trop élevé")
+    .test(
+      "is-currency",
+      "Le montant doit avoir deux décimales au maximum",
+      (value) => {
+        if (value === undefined) return true;
+        return /^\d+(\.\d{1,2})?$/.test(value.toString());
+      }
+    ),
 
   rib: Yup.string().required("RIB is required"), // Adjust the length if needed
   bank: Yup.string().required("Bank is required"),

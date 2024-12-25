@@ -53,10 +53,9 @@ const InvoiceForm = () => {
                 name="amount"
                 color="#64748B"
                 formatoptions={{
-                  style: "currency",
+                  style: "decimal",
                   currency: "EUR",
-                  currencyDisplay: "code",
-                  currencySign: "accounting",
+                  currencyDisplay: "narrowSymbol",
                 }}
               />
 
