@@ -7,9 +7,10 @@ interface InvoiceState {
   setInvoices: (invoices: InvoiceType[]) => void;
   updateInvoice: (id: string, invoice: InvoiceType) => void;
   deleteInvoice: (id: string) => void;
+  getInvoiceById: (id: string) => InvoiceType | undefined;
 }
 
-const InvoiceStore = create<InvoiceState>((set) => ({
+const InvoiceStore = create<InvoiceState>((set, get) => ({
   invoices: [],
   setInvoices: (invoices) => set({ invoices }),
   updateInvoice: (id, invoice) =>
@@ -20,6 +21,10 @@ const InvoiceStore = create<InvoiceState>((set) => ({
     set((state) => ({
       invoices: state.invoices.filter((inv) => inv.id !== id),
     })),
+  getInvoiceById: (id) => {
+    const state = get();
+    return state.invoices.find((inv) => inv.id === id);
+  },
 }));
 
 export const useInvoiceStore = createSelectors(InvoiceStore);

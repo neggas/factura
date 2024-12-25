@@ -35,6 +35,18 @@ export const invoiceValidationSchema = Yup.object().shape({
   dropName: Yup.string().required("Drop name is required"),
 });
 
+export const invoiceUpdateValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  rib: Yup.string().required("RIB is required"), // Adjust the length if needed
+  bank: Yup.string().required("Bank is required"),
+  dropName: Yup.string().required("Drop name is required"),
+  comment: Yup.string().optional(),
+  invoice: Yup.string().required("Invoice file link is required"),
+  dueDate: Yup.date().required("Due date is required"),
+});
+
 export const validateInvoice = (values: CreateInvoiceType) => {
   return invoiceValidationSchema
     .validate(values, { abortEarly: false })

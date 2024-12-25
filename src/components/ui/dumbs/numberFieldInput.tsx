@@ -14,6 +14,7 @@ type NumberFieldInputDumbProps = InputHTMLAttributes<HTMLInputElement> &
     name: string;
     error?: string;
     hasError?: boolean;
+    formatoptions?: Intl.NumberFormatOptions;
   };
 
 const NumberFieldInputDumb = ({
@@ -21,6 +22,7 @@ const NumberFieldInputDumb = ({
   name,
   error,
   hasError,
+  formatoptions,
   ...props
 }: NumberFieldInputDumbProps) => {
   return (
@@ -28,7 +30,7 @@ const NumberFieldInputDumb = ({
       <Field.Label htmlFor={name} textStyle="md">
         {label}
       </Field.Label>
-      <NumberInputRoot formatOptions={props.formatOptions}>
+      <NumberInputRoot formatOptions={formatoptions}>
         <NumberInputField
           {...props}
           w="full"

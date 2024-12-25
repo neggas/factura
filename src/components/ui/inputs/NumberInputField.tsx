@@ -10,7 +10,7 @@ type NumberFieldInputProps = InputHTMLAttributes<HTMLInputElement> &
     label?: string;
     placeholder?: string;
     name: string;
-    defaultValue?: number;
+    defaultValue?: number | string;
     partlyControledValue?: string;
     validate?: (
       value: string
@@ -59,6 +59,7 @@ const NumberFieldInput = ({
       hasError={hasError}
       onChange={onChange}
       formatOptions={formatoptions}
+      defaultValue={defaultValue}
       w="full"
       h="full"
     />

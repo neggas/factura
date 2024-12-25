@@ -51,3 +51,22 @@ export const deleteInvoice = createServerAction(async (invoiceId: string) => {
     .returning();
   return deletedInvoice[0];
 });
+
+export const getInvoiceById = createServerAction(async (invoiceId: string) => {
+  const invoice = await db
+    .select()
+    .from(invoices)
+    .where(eq(invoices.id, invoiceId));
+  return invoice[0];
+});
+
+export const updateInvoice = createServerAction(
+  async (invoiceId: string, invoiceData: CreateInvoiceType) => {
+    const updatedInvoice = await db
+      .update(invoices)
+      .set(invoiceData)
+      .where(eq(invoices.id, invoiceId))
+      .returning();
+    return updatedInvoice[0];
+  }
+);
