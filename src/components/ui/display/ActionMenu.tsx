@@ -8,6 +8,8 @@ import {
   MenuTrigger,
   MenuTriggerItem,
 } from "@/components/ui/menu";
+import { InvoiceType } from "@/helpers/datatable/invoicesColumnsHelper";
+import { useInvoiceStore } from "@/store";
 import { Badge, Box } from "@chakra-ui/react";
 
 export interface ActionMenuProps<T extends { id: string }> {
@@ -15,7 +17,8 @@ export interface ActionMenuProps<T extends { id: string }> {
   onDelete?: () => void;
   onChangeStatus?: (
     id: string,
-    status: "paid" | "lost" | "pending"
+    status: "paid" | "lost" | "pending",
+    handleUpdate: (id: string, invoice: InvoiceType) => void
   ) => Promise<void>;
   data: T;
 }
@@ -26,6 +29,7 @@ const ActionMenu = <T extends { id: string }>({
   onChangeStatus,
   data,
 }: ActionMenuProps<T>) => {
+  const updateInvoice = useInvoiceStore.use.updateInvoice();
   return (
     <Box w="170px">
       <MenuRoot positioning={{ placement: "right-start", gutter: 2 }}>
@@ -61,7 +65,9 @@ const ActionMenu = <T extends { id: string }>({
                     textAlign="left"
                     textStyle="md"
                     p="0"
-                    onClick={() => onChangeStatus}>
+                    onClick={() =>
+                      onChangeStatus(data.id, "paid", updateInvoice)
+                    }>
                     <Badge colorPalette="green" size="lg">
                       Payé
                     </Badge>
@@ -74,7 +80,9 @@ const ActionMenu = <T extends { id: string }>({
                     textAlign="left"
                     textStyle="md"
                     p="0"
-                    onClick={() => onChangeStatus(data.id, "lost")}>
+                    onClick={() =>
+                      onChangeStatus(data.id, "lost", updateInvoice)
+                    }>
                     <Badge colorPalette="red" size="lg">
                       Perdu
                     </Badge>

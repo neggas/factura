@@ -37,7 +37,8 @@ export const updateInvoiceStatus = createServerAction(
     const updatedInvoice = await db
       .update(invoices)
       .set({ status })
-      .where(eq(invoices.id, invoiceId));
-    return updatedInvoice;
+      .where(eq(invoices.id, invoiceId))
+      .returning();
+    return updatedInvoice[0];
   }
 );

@@ -16,9 +16,16 @@ export type InvoiceType = CreateInvoiceType & {
 
 const handleChangeStatus = async (
   id: string,
-  status: "paid" | "lost" | "pending"
+  status: "paid" | "lost" | "pending",
+  updateInvoice: (id: string, invoice: InvoiceType) => void
 ) => {
-  console.log(id, status);
+  const response = await updateInvoiceStatus(id, status);
+  if (!response.success) {
+    throw new Error("Une erreur est apparu");
+  }
+
+  const updatedInvoice = response.value;
+  updateInvoice(id, updatedInvoice);
 };
 
 const columnHelper = createColumnHelper<InvoiceType>();
