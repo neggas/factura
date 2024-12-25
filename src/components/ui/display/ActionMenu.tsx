@@ -1,4 +1,3 @@
-"use client";
 import MoreIcon from "@/components/icons/MoreIcon";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,9 +10,11 @@ import {
 import { InvoiceType } from "@/helpers/datatable/invoicesColumnsHelper";
 import { useInvoiceStore } from "@/store";
 import { Badge, Box } from "@chakra-ui/react";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "next/navigation";
 
 export interface ActionMenuProps<T extends { id: string }> {
-  onUpdate?: () => void;
+  onUpdate?: (id: string, router?: AppRouterInstance) => void;
   onDelete?: (id: string, handleInvoiceDelete: (id: string) => void) => void;
   onChangeStatus?: (
     id: string,
@@ -31,6 +32,9 @@ const ActionMenu = <T extends { id: string }>({
 }: ActionMenuProps<T>) => {
   const updateInvoice = useInvoiceStore.use.updateInvoice();
   const deleteInvoice = useInvoiceStore.use.deleteInvoice();
+
+  const router = useRouter();
+
   return (
     <Box w="170px">
       <MenuRoot positioning={{ placement: "right-start", gutter: 2 }}>
@@ -42,7 +46,7 @@ const ActionMenu = <T extends { id: string }>({
             <MenuItem value="update">
               <Button
                 outline="none"
-                onClick={() => onUpdate()}
+                onClick={() => onUpdate(data.id, router)}
                 variant="ghost"
                 textAlign="left"
                 textStyle="md"

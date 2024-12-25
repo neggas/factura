@@ -8,6 +8,8 @@ import { Badge, Text } from "@chakra-ui/react";
 import { frenchDateFormat } from "../date";
 import ActionMenu from "@/components/ui/display/ActionMenu";
 import { updateInvoiceStatus, deleteInvoice } from "@/actions/dashboard";
+import { ROUTES } from "../constant/routes";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export type InvoiceType = CreateInvoiceType & {
   status: "pending" | "paid" | "lost";
@@ -38,6 +40,10 @@ const handleDeleteInvoice = async (
   }
   deleteInvoiceStateAction(id);
   deleteInvoice(id);
+};
+
+const handleUpdateInvoice = (id: string, router?: AppRouterInstance) => {
+  router?.push(`${ROUTES.INVOICES}/${id}/update`);
 };
 
 const columnHelper = createColumnHelper<InvoiceType>();
@@ -114,6 +120,7 @@ export const invoiceColumnHelper = [
           data={info.row.original}
           onChangeStatus={handleChangeStatus}
           onDelete={handleDeleteInvoice}
+          onUpdate={handleUpdateInvoice}
         />
       );
     },
