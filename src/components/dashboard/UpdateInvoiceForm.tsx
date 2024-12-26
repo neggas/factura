@@ -31,6 +31,8 @@ const UpdateInvoiceForm = () => {
 
   useEffect(() => {
     asyncFetchInvoice();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleSubmit = async (values: CreateInvoiceType) => {
