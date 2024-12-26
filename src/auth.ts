@@ -16,6 +16,7 @@ export const {
   signOut,
   auth,
 } = NextAuth({
+  trustHost: true,
   providers: [
     CredentialsProvider({
       name: "Connexion",
