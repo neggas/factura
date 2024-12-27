@@ -8,7 +8,7 @@ import {
   createServerAction,
   ServerActionError,
 } from "@/helpers/server-actions";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export const getInvoices = async () => {
   const fetchedInvoices = await db.select().from(invoices);
@@ -70,3 +70,42 @@ export const updateInvoice = createServerAction(
     return updatedInvoice[0];
   }
 );
+
+export const getDashboardStats = createServerAction(async () => {
+  try {
+    const queryResponse = await db
+      .select({ sum: sql<number>`cast(SUM(${invoices.amount}) as int)` })
+      .from(invoices)
+      .where(eq(invoices.status, "lost"));
+
+    const queryResponsePaid = await db
+      .select({ sum: sql<number>`cast(SUM(${invoices.amount}) as int)` })
+      .from(invoices)
+      .where(eq(invoices.status, "paid"));
+
+    const queryResponsePending = await db
+      .select({ sum: sql<number>`cast(SUM(${invoices.amount}) as int)` })
+      .from(invoices)
+      .where(eq(invoices.status, "pending"));
+
+    const closestDueInvoices = await db
+      .select()
+      .from(invoices)
+      .where(sql`${invoices.dueDate} >= CURRENT_DATE`)
+      .orderBy(invoices.dueDate)
+      .limit(5);
+
+    const totalInvoiceLost = queryResponse[0].sum;
+    const totalInvoicePending = queryResponsePending[0].sum;
+    const totalInvoicePaid = queryResponsePaid[0].sum;
+
+    return {
+      totalInvoiceLost,
+      totalInvoicePaid,
+      totalInvoicePending,
+      closestDueInvoices,
+    };
+  } catch {
+    throw new ServerActionError("Une erreur inattendue est survenue.");
+  }
+});
