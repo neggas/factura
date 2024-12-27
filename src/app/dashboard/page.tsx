@@ -1,3 +1,4 @@
+"use client";
 import FinancialCard from "@/components/dashboard/FinancialCard";
 import PageHeader from "@/components/dashboard/PageHeader";
 import DataTable from "@/components/ui/display/DataTable";
@@ -6,6 +7,9 @@ import { getDashboardStats } from "@/actions/dashboard/invoices/invoiceActions";
 import { formatAsCurrency } from "@/helpers/functions";
 import { Text } from "@chakra-ui/react";
 import { invoiceColumnHelper } from "@/helpers/datatable/invoicesColumnsHelper";
+import { useEffect } from "react";
+import { useStatsStore } from "@/store/dashboardStore";
+
 const fetchDashboardStats = async () => {
   const response = await getDashboardStats();
 
@@ -17,8 +21,18 @@ const fetchDashboardStats = async () => {
   return response.value;
 };
 
-const Dashboard = async () => {
-  const stats = await fetchDashboardStats();
+const Dashboard = () => {
+  const { setDashboardState, getDashboardStats } = useStatsStore();
+  const stats = getDashboardStats();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const stats = await fetchDashboardStats();
+      console.log(stats);
+      setDashboardState(stats);
+    };
+    fetchData();
+  }, [setDashboardState]);
 
   return (
     <Box w="full">

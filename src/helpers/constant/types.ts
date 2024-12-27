@@ -106,3 +106,19 @@ export interface CreateInvoiceDto {
   bank: string;
   dropName: string;
 }
+
+export interface Invoice {
+  id: string;
+  email: string;
+  comment: string | null;
+  invoice: string;
+  dueDate: string;
+  amount: string;
+  rib: string;
+  bank: string;
+  dropName: string;
+  status: "paid" | "pending" | "lost";
+  updated_at: Date | null;
+  created_at: Date;
+  deleted_at: Date | null;
+}
