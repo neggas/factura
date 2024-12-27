@@ -6,9 +6,9 @@ import { Box, Flex } from "@chakra-ui/react";
 import { getDashboardStats } from "@/actions/dashboard/invoices/invoiceActions";
 import { formatAsCurrency } from "@/helpers/functions";
 import { Text } from "@chakra-ui/react";
-import { invoiceColumnHelper } from "@/helpers/datatable/invoicesColumnsHelper";
 import { useEffect } from "react";
 import { useStatsStore } from "@/store/dashboardStore";
+import { incomingInvoiceColumn } from "@/helpers/datatable/incomingInvoice";
 
 const fetchDashboardStats = async () => {
   const response = await getDashboardStats();
@@ -58,7 +58,7 @@ const Dashboard = () => {
         </Text>
         <DataTable
           data={stats.closestDueInvoices}
-          columns={invoiceColumnHelper}
+          columns={incomingInvoiceColumn}
         />
       </Box>
     </Box>
