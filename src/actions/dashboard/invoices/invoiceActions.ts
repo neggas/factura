@@ -91,7 +91,9 @@ export const getDashboardStats = createServerAction(async () => {
     const closestDueInvoices = await db
       .select()
       .from(invoices)
-      .where(sql`${invoices.dueDate} >= CURRENT_DATE`)
+      .where(
+        sql`${invoices.dueDate} >= CURRENT_DATE AND ${invoices.status} = 'pending'`
+      )
       .orderBy(invoices.dueDate)
       .limit(5);
 
