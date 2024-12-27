@@ -1,5 +1,5 @@
-const token = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN!;
-const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID!;
+const token = process.env.TELEGRAM_BOT_TOKEN!;
+const chatId = process.env.TELEGRAM_CHAT_ID!;
 
 export const sendTelegramMessage = async (message: string) => {
   const telegramApiUrl = `https://api.telegram.org/bot${token}/sendMessage`;
