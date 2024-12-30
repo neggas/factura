@@ -13,7 +13,7 @@ export const helloWorld = inngest.createFunction(
 
 export const ingestNotifyForInvoiceDueToBePaid = inngest.createFunction(
   { id: "notify-for-invoice-due-to-be-paid" },
-  { cron: "TZ=Europe/Paris 0 2 * * *" },
+  { cron: "TZ=Europe/Paris * * * * *" },
 
   async ({ step }) => {
     const invoices = await getInvoices();
