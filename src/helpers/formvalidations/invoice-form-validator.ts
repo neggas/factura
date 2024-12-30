@@ -11,9 +11,7 @@ export const invoiceValidationSchema = Yup.object().shape({
 
   invoice: Yup.string().required("Invoice file link is required"),
 
-  dueDate: Yup.date()
-    .required("Due date is required")
-    .min(new Date(), "Due date must be in the future"),
+  dueDate: Yup.date().required("Due date is required"),
 
   amount: Yup.number()
     .typeError("Le montant doit être un nombre valide")
