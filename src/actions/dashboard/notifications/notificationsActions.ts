@@ -1,21 +1,26 @@
 "use server";
 
 import { sendTelegramMessage } from "@/telegram";
-import { getInvoiceById } from "../invoices/invoiceActions";
 import { frenchDateFormat } from "@/helpers/date";
 
-export const sendTlgInvoiceNotification = async (id: string) => {
+export interface TlgNotificationDataType {
+  dueDate: string;
+  invoice: string;
+  dropName: string;
+  rib: string;
+  comment: string;
+}
+
+export const sendTlgInvoiceNotification = async ({
+  dueDate,
+  dropName,
+  rib,
+  invoice,
+  comment,
+}: TlgNotificationDataType) => {
   try {
-    const invoice = await getInvoiceById(id);
-    if (!invoice.success) {
-      throw new Error("Invoice not found");
-    }
-
-    const { dueDate, dropName, rib, comment } = invoice.value;
-    const invoicePath = invoice.value.invoice;
-
     const message = `
-    Facture: ${invoicePath}
+    Facture: ${invoice}
 
 Date d'échéance : ${frenchDateFormat(dueDate)}
 RIB : ${rib}
