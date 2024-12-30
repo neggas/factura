@@ -7,7 +7,7 @@ import {
 
 export const ingestNotifyForInvoiceDueToBePaid = inngest.createFunction(
   { id: "notify-for-invoice-due-to-be-paid" },
-  { cron: "TZ=Europe/Paris * * * * *" },
+  { cron: "TZ=Europe/Paris 0/5 * * * *" },
   async ({ step }) => {
     try {
       const invoices = await getInvoices();
