@@ -4,6 +4,7 @@ import { Flex, Link, Text } from "@chakra-ui/react";
 import DashboardIcon from "@/components/icons/Dashboard";
 import PaymentIcon from "@/components/icons/Payment";
 import AnalyseIcon from "@/components/icons/Analyse";
+import UserIcon from "@/components/icons/UserIcon";
 export const navigationsLinks: NavigationLinkType[] = [
   {
     component: (
@@ -101,6 +102,40 @@ export const navigationsLinks: NavigationLinkType[] = [
           <AnalyseIcon fill="none" width="25px" height="25px" />
           <Text textAlign="left" textStyle="lg">
             Devis
+          </Text>
+        </Flex>
+      </Link>
+    ),
+  },
+
+  {
+    component: (
+      <Link
+        href="/dashboard/users"
+        textAlign="left"
+        h="36px"
+        py="10px"
+        px="12px"
+        textStyle="heading-sm"
+        rounded="6px"
+        _hover={{
+          textDecoration: "none",
+          bg: "black",
+          color: "white",
+          "& path": {
+            stroke: "white",
+          },
+          "& ellipse": {
+            fill: "white",
+          },
+          "& rect": {
+            stroke: "white",
+          },
+        }}>
+        <Flex w="full" gap="10px" align="center">
+          <UserIcon fill="none" width="25px" height="25px" />
+          <Text textAlign="left" textStyle="lg">
+            Utilisateurs
           </Text>
         </Flex>
       </Link>
