@@ -122,3 +122,14 @@ export interface Invoice {
   created_at: Date;
   deleted_at: Date | null;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
+  created_at: Date;
+  updated_at: Date | null;
+  deleted_at: Date | null;
+}
