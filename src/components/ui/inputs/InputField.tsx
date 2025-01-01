@@ -17,6 +17,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   validateOnChange?: boolean;
   variantTextLabel?: string;
   labelProps?: TextProps;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const InputField = ({
@@ -24,7 +25,7 @@ const InputField = ({
   validateOnChange = true,
   defaultValue,
   partlyControledValue,
-
+  onChange: onChangeProps,
   ...props
 }: InputProps) => {
   const [field, meta, helpers] = useField(props);
@@ -34,6 +35,9 @@ const InputField = ({
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value, validateOnChange);
     setTouched(true, false);
+    if (onChangeProps) {
+      onChangeProps(event);
+    }
   };
 
   useEffect(() => {
