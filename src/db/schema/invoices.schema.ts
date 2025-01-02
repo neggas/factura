@@ -7,6 +7,7 @@ import {
   text,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { users } from "./users.schema";
 
 export const InvoiceStatus = pgEnum("status", ["paid", "pending", "lost"]);
 
@@ -23,6 +24,7 @@ export const invoices = pgTable("invoices", {
   bank: varchar("bank", { length: 255 }).notNull(),
   dropName: varchar("drop_name", { length: 255 }).notNull(),
   status: InvoiceStatus().default("pending").notNull(),
+  userId: varchar("user_id", { length: 255 }).references(() => users.id),
 
   ...DRIZZLE_ORTHODATA,
 });
