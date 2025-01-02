@@ -6,6 +6,7 @@ export type UserSession = {
     id: string;
     name: string;
     email: string;
+    role: "admin" | "drop";
   };
 };
 
@@ -129,6 +130,7 @@ export interface User {
   email: string | null;
   emailVerified: Date | null;
   image: string | null;
+  role: "admin" | "drop";
   created_at: Date;
   updated_at: Date | null;
   deleted_at: Date | null;

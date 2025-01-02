@@ -13,13 +13,19 @@ import {
 } from "@/helpers/formtypes/userFormTypes";
 import { createUserValidationSchema } from "@/helpers/formvalidations/user-form-validation";
 import { useMemo, useState } from "react";
+import { createUserAction } from "@/actions/dashboard/users";
 
 const UserForm = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
 
   const handleCreateUser = async (values: CreateUserType) => {
-    console.log(values);
+    const response = await createUserAction(values);
+    if (!response.success) {
+      console.log(response.error);
+    } else {
+      router.push(ROUTES.USERS);
+    }
   };
 
   const generatePassword = useMemo(() => {

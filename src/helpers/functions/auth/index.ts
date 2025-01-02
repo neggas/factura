@@ -9,6 +9,7 @@ export const getUserFromDb = async (
   name: string;
   email: string | null;
   password: string;
+  role: "admin" | "drop";
 }> => {
   const [user] = await db
     .select()
@@ -21,5 +22,6 @@ export const getUserFromDb = async (
     name: user?.name,
     email: user?.email,
     password: user?.password,
+    role: user?.role as "admin" | "drop",
   };
 };

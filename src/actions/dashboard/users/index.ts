@@ -8,6 +8,9 @@ import {
 } from "@/helpers/server-actions";
 import { not, eq } from "drizzle-orm";
 import { auth } from "@/auth";
+import bcrypt from "bcrypt";
+import { CreateUserType } from "@/helpers/formtypes/userFormTypes";
+import { User } from "next-auth";
 
 export const getUsers = createServerAction(async () => {
   try {
@@ -31,3 +34,34 @@ export const getUsers = createServerAction(async () => {
     throw new ServerActionError("Une erreur inattendue est survenue.");
   }
 });
+
+export const createUserAction = createServerAction(
+  async (user: CreateUserType) => {
+    try {
+      const currentUser = await auth();
+      const decodedUser = currentUser?.user as User & {
+        role: "admin" | "drop";
+      };
+      if (decodedUser?.role !== "admin") {
+        console.log(decodedUser);
+        throw new ServerActionError("Vous n'avez pas les droits suffisants.");
+      }
+
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+
+      const newUser = await db.insert(users).values({
+        name: user.fullname,
+        email: user.email,
+        password: hashedPassword,
+        role: "drop",
+      });
+
+      return newUser;
+    } catch (error) {
+      if (error instanceof ServerActionError) {
+        throw new ServerActionError(error.message);
+      }
+      throw new ServerActionError("Une erreur inattendue est survenue.");
+    }
+  }
+);

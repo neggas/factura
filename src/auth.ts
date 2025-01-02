@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import loginValidationSchema from "./helpers/formvalidations/login-form-validation";
 import bcrypt from "bcrypt";
@@ -37,30 +37,26 @@ export const {
           const validateData = await loginValidationSchema.validate(
             credentials
           );
-
           const user = await getUserFromDb(validateData.username);
 
           if (!user) {
             errors.username = "This username is not registered";
           }
-
           const isPasswordCorrect = await bcrypt.compare(
             validateData.password,
             user.password
           );
-
           if (!isPasswordCorrect) {
             errors.password = "Invalid password";
           }
-
           if (errors.username || errors.password) {
             return null;
           }
-
           return {
             id: user.id,
             name: user.name,
             email: user.email,
+            role: user.role,
           };
         } catch {
           return null;
@@ -78,10 +74,12 @@ export const {
 
   callbacks: {
     async jwt({ token, user }) {
+      const parsedUser = user as AdapterUser & { role: "admin" | "drop" };
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+        token.role = parsedUser.role;
       }
       return token;
     },
@@ -91,7 +89,9 @@ export const {
           id: token.id as string,
           email: token.email as string,
           name: token.name as string,
-        } as AdapterUser;
+          emailVerified: token.emailVerified as Date,
+          role: token.role as "admin" | "drop",
+        } as AdapterUser & User & { role: "admin" | "drop" };
       }
       return session;
     },

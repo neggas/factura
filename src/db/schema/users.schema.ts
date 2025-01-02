@@ -1,6 +1,7 @@
 import { DRIZZLE_ORTHODATA } from "@/helpers/constant/database-orthodata";
-import { pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
 
+export const UserRole = pgEnum("role", ["admin", "drop"]);
 export const users = pgTable("user", {
   id: varchar("id")
     .primaryKey()
@@ -10,6 +11,6 @@ export const users = pgTable("user", {
   password: varchar("password", { length: 255 }).notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: varchar("image"),
-
+  role: UserRole("role").default("drop"),
   ...DRIZZLE_ORTHODATA,
 });
