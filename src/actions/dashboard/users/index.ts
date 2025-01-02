@@ -49,12 +49,15 @@ export const createUserAction = createServerAction(
 
       const hashedPassword = await bcrypt.hash(user.password, 10);
 
-      const newUser = await db.insert(users).values({
-        name: user.fullname,
-        email: user.email,
-        password: hashedPassword,
-        role: "drop",
-      });
+      const newUser = await db
+        .insert(users)
+        .values({
+          name: user.fullname,
+          email: user.email,
+          password: hashedPassword,
+          role: "drop",
+        })
+        .returning();
 
       return newUser;
     } catch (error) {
