@@ -30,7 +30,10 @@ export const invoiceValidationSchema = Yup.object().shape({
   rib: Yup.string().required("RIB is required"), // Adjust the length if needed
   bank: Yup.string().required("Bank is required"),
 
-  dropName: Yup.string().required("Drop name is required"),
+  drop: Yup.object({
+    label: Yup.string().required("Drop label is required"),
+    value: Yup.string().required("Drop value is required"),
+  }).required("Drop is required"),
 });
 
 export const invoiceUpdateValidationSchema = Yup.object().shape({
@@ -39,7 +42,10 @@ export const invoiceUpdateValidationSchema = Yup.object().shape({
     .required("Email is required"),
   rib: Yup.string().required("RIB is required"), // Adjust the length if needed
   bank: Yup.string().required("Bank is required"),
-  dropName: Yup.string().required("Drop name is required"),
+  drop: Yup.object({
+    label: Yup.string().required("Drop label is required"),
+    value: Yup.string().required("Drop value is required"),
+  }).required("Drop is required"),
   comment: Yup.string().optional(),
   invoice: Yup.string().required("Invoice file link is required"),
   dueDate: Yup.date().required("Due date is required"),

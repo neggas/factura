@@ -6,7 +6,10 @@ export const createInvoiceInitialValue = {
   amount: "",
   rib: "",
   bank: "",
-  dropName: "",
+  drop: {
+    label: "",
+    value: "",
+  },
 };
 
 export type CreateInvoiceType = {
@@ -17,5 +20,8 @@ export type CreateInvoiceType = {
   amount: string;
   rib: string;
   bank: string;
-  dropName: string;
+  drop: {
+    label: string;
+    value: string;
+  };
 };

@@ -4,7 +4,7 @@ import {
   CreateInvoiceType,
   createInvoiceInitialValue,
 } from "@/helpers/formtypes/createInvoiceType";
-import { Flex, VStack } from "@chakra-ui/react";
+import { Box, Flex, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import InputField from "../ui/inputs/InputField";
 import NumberFieldInput from "../ui/inputs/NumberInputField";
@@ -13,17 +13,45 @@ import { createInvoice } from "@/actions/dashboard";
 import { invoiceValidationSchema } from "@/helpers/formvalidations/invoice-form-validator";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/helpers/constant/routes";
+import AutocompleteInputField, {
+  Option,
+} from "../ui/inputs/AutocompleteInputField";
+import { useEffect, useState } from "react";
+import { getUsers } from "@/actions/dashboard/users";
 
 const InvoiceForm = () => {
   const router = useRouter();
+  const [drops, setDrops] = useState<Option[]>([]);
   const handleCreateInvoice = async (values: CreateInvoiceType) => {
-    const response = await createInvoice(values);
-    if (response?.success === false) {
+    const invoiceBody = {
+      ...values,
+      dropName: values.drop.value,
+      userId: values.drop.value,
+    };
+    const response = await createInvoice(invoiceBody);
+
+    if (!response.success) {
       //TODO: handle error with useToast
     } else {
       router.push(ROUTES.INVOICES);
     }
   };
+
+  useEffect(() => {
+    const fetchDrops = async () => {
+      const response = await getUsers("drop");
+      if (response.success) {
+        const drops = response.value.map((drop) => ({
+          label: drop.name!,
+          value: drop.id!,
+        }));
+        setDrops(drops);
+      } else {
+        //TODO: Hanlde notification to prevent error
+      }
+    };
+    fetchDrops();
+  }, []);
 
   return (
     <>
@@ -41,7 +69,14 @@ const InvoiceForm = () => {
                 color="#64748B"
               />
               <InputField label="RIB utilisé" name="rib" color="#64748B" />
-              <InputField label="Nom du drop" name="dropName" color="#64748B" />
+
+              <Box w="full">
+                <AutocompleteInputField
+                  options={drops}
+                  name="drop"
+                  label="Sélectionner un drop"
+                />
+              </Box>
               <InputField
                 label="Nom de la banque"
                 name="bank"
