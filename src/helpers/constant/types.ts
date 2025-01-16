@@ -1,14 +1,14 @@
 import { JSX } from "react";
-
-export type UserSession = {
-  expires: Date;
+import { Session } from "next-auth";
+export interface UserSession extends Session {
+  expires: string;
   user: {
     id: string;
     name: string;
     email: string;
     role: "admin" | "drop";
   };
-};
+}
 
 export type NavigationLinkType = {
   component: JSX.Element;

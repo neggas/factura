@@ -11,7 +11,15 @@ import { updateInvoiceStatus, deleteInvoice } from "@/actions/dashboard";
 import { ROUTES } from "../constant/routes";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export type InvoiceType = CreateInvoiceType & {
+export type InvoiceType = {
+  email: string;
+  comment: string | null;
+  invoice: string;
+  dueDate: string;
+  amount: string;
+  rib: string;
+  bank: string;
+  dropName: string;
   status: "pending" | "paid" | "lost";
   id: string;
 };

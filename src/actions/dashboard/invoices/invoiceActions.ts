@@ -9,11 +9,26 @@ import {
   ServerActionError,
 } from "@/helpers/server-actions";
 import { eq, sql } from "drizzle-orm";
-
+import { auth } from "@/auth";
+import { InvoiceType } from "@/helpers/datatable/invoicesColumnsHelper";
+import { UserSession } from "@/helpers/constant/types";
 export const getInvoices = async () => {
-  const fetchedInvoices = await db.select().from(invoices);
+  const currentUser = await auth();
+  const currentUserSession = currentUser as UserSession;
+
+  let fetchedInvoices: InvoiceType[] = [];
+  if (currentUserSession?.user?.role !== "admin") {
+    fetchedInvoices = await db
+      .select()
+      .from(invoices)
+      .where(eq(invoices.userId, currentUserSession?.user?.id));
+  } else {
+    fetchedInvoices = await db.select().from(invoices);
+  }
+
   return fetchedInvoices;
 };
+
 export const createInvoice = createServerAction(
   async (invoiceData: CreateInvoiceType) => {
     try {

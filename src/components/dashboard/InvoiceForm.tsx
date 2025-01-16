@@ -25,7 +25,7 @@ const InvoiceForm = () => {
   const handleCreateInvoice = async (values: CreateInvoiceType) => {
     const invoiceBody = {
       ...values,
-      dropName: values.drop.value,
+      dropName: values.drop.label,
       userId: values.drop.value,
     };
     const response = await createInvoice(invoiceBody);
