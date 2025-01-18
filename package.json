@@ -12,6 +12,7 @@
     "@auth/drizzle-adapter": "^1.7.4",
     "@chakra-ui/react": "^3.2.3",
     "@emotion/react": "^11.14.0",
+    "@tanstack/match-sorter-utils": "^8.19.4",
     "@tanstack/react-table": "^8.20.6",
     "bcrypt": "^5.1.1",
     "dayjs": "^1.11.13",
